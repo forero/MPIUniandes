@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#PBS -q batch
+#PBS -N test_scheduler
+#PBS -l mem=128mb
+#PBS -l nodes=1:ppn=12
+#PBS -M j.e.forero.romero@gmail.com
+#PBS -m abe
+
+cd $PBS_O_WORKDIR
+echo $PBS_NODEFILE
+cat $PBS_NODEFILE
+NPROCS=`wc -l < $PBS_NODEFILE`
+echo This job has allocated $NPROCS cpus
+mpiexec -v -n $NPROCS ./a.out
